@@ -455,11 +455,11 @@
         const map = L.map(containerId, { zoomControl: true, layers: [satelliteLayer] }).setView([lat, lng], zoomLevel);
         L.control.layers({ "🛰️ 纯净卫星遥感底图": satelliteLayer }, { "🛣️ 叠加交通干线与注记": roadLayer }, {position: 'topright', collapsed: false}).addTo(map);
 
-        fetch('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json').then(res => res.json())
+        fetch('json/100000_full.json').then(res => res.json())
             .then(data => { L.geoJSON(data, { style: { color: '#ffffff', weight: 1.5, fillOpacity: 0, opacity: 0.6, dashArray: '4, 4' }, interactive: false }).addTo(map); }).catch(e => console.error('边界加载失败', e));
 
         let adcode = cityKey === 'yumen' ? '620981' : '211100';
-        fetch(`https://geo.datav.aliyun.com/areas_v3/bound/${adcode}.json`).then(res => res.json())
+        fetch(`json/${adcode}.json`).then(res => res.json())
             .then(data => {
                 const boundary = L.geoJSON(data, { style: { color: '#f9a826', weight: 4, fillOpacity: 0.1, dashArray: '5, 5' }, interactive: false }).addTo(map);
                 if (cityKey === 'panjin') { map.fitBounds(boundary.getBounds()); L.circleMarker([41.12, 122.06], { radius: 8, color: '#ff0000', fillColor: '#ff0000', fillOpacity: 0.8, weight: 2 }).addTo(map).bindTooltip('盘锦市中心', {permanent: true, direction: 'right', className: 'map-tooltip'}).openTooltip(); }
@@ -473,8 +473,8 @@
     }
 
     // ⚠️ 老师填 DeepSeek API Key 处
-    const API_KEY = "sk-crfsBkWIHFldUpTRASx4ehTCLc7fiN2n9G6kDsNxSMu10O7n"; 
-    const API_URL = "https://xh.v1api.cc/v1/chat/completions";
+    const API_KEY = ""; 
+    const API_URL = "";
 
     function getAIChatHtml(cityKey) {
         let cityName = cityKey === 'yumen' ? '甘肃玉门市' : '辽宁盘锦市';
